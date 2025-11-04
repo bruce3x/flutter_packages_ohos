@@ -767,6 +767,12 @@ export class Camera implements CameraCaptureStateListener {
 
       await this.photoSession.commitConfig();
 
+      let initDisplayRotation = display.getDefaultDisplaySync().rotation;
+      let initPreviewRotation = this.previewOutput.getPreviewRotation(initDisplayRotation * camera.ImageRotation.ROTATION_90);
+      this.previewOutput.setPreviewRotation(initPreviewRotation, false);
+      console.log("==================== previewOutput.setPreviewRotation", initDisplayRotation, initPreviewRotation)
+
+
       await this.photoSession.start();
       
       // 设置闪光灯模式
